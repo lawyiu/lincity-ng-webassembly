@@ -1,0 +1,3 @@
+[submodule "xml.js"]
+	path = xml.js
+	url = https://github.com/lawyiu/xml.js.git
