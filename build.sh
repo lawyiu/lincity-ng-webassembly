@@ -40,9 +40,14 @@ fi
 echo "Building Lincity-ng"
 cd lincity-ng
 
-./autogen.sh
-EM_PKG_CONFIG_PATH="../em_libs/lib/pkgconfig" emconfigure ./configure --prefix="$(pwd)/install/usr" \
---with-libphysfs="../em_libs/" CFLAGS="-s USE_ZLIB=1 -s USE_SDL=2 -s USE_SDL_TTF=2 -s USE_SDL_MIXER=2 -s USE_SDL_GFX=2 -s USE_SDL_IMAGE=2"
+if [ ! -f configure ]; then
+    ./autogen.sh
+fi
+
+if [ ! -f config.status ]; then
+    EM_PKG_CONFIG_PATH="../em_libs/lib/pkgconfig" emconfigure ./configure --prefix="$(pwd)/install/usr" \
+    --with-libphysfs="../em_libs/" CFLAGS="-s USE_ZLIB=1 -s USE_SDL=2 -s USE_SDL_TTF=2 -s USE_SDL_MIXER=2 -s USE_SDL_GFX=2 -s USE_SDL_IMAGE=2"
+fi
 
 echo "Building xmlgettext"
 cd src/tools/xmlgettext
