@@ -10,7 +10,7 @@
       div.emscripten { text-align: center; }
       div.emscripten_border { border: 0px solid black; }
       /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
-      canvas.emscripten { border: 0px none; background-color: black; }
+      canvas.emscripten { border: 0px none; background-color: black; width: 100%; }
 
       .spinner {
         height: 50px;
@@ -61,9 +61,15 @@
       var progressElement = document.getElementById('progress');
       var spinnerElement = document.getElementById('spinner');
 
+      function resizeCanvas() {
+        let canvas = document.getElementById('canvas');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
       var Module = {
         preRun: [],
-        postRun: [],
+        postRun: [() => { resizeCanvas(); window.dispatchEvent(new Event('resize')); }],
         print: (function() {
           var element = document.getElementById('output');
           if (element) element.value = ''; // clear browser cache
@@ -130,6 +136,10 @@
         Module.setStatus = function(text) {
           if (text) Module.printErr('[post-exception status] ' + text);
         };
+      };
+
+      window.onresize = function() {
+        resizeCanvas();
       };
     </script>
     {{{ SCRIPT }}}
