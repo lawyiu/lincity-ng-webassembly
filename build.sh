@@ -9,7 +9,7 @@ if [ ! -f em_libs/lib/libxml2.a ]; then
     cd ../
     mkdir -p ./build
     cd ./build
-    emconfigure ../libxml2/configure --prefix="$(pwd)/../../em_libs" CFLAGS="-O3 -g -s INITIAL_MEMORY=300MB -s ALLOW_MEMORY_GROWTH=1" \
+    emconfigure ../libxml2/configure --prefix="$(pwd)/../../em_libs" CFLAGS="-O3 -g" LDFLAGS="-s INITIAL_MEMORY=300MB -s ALLOW_MEMORY_GROWTH=1" \
     --with-http=no --with-ftp=no --with-python=no --with-threads=no --enable-shared=no
     emmake make install
     cd ../../
@@ -29,7 +29,7 @@ if [ ! -f em_libs/lib/libphysfs.a ]; then
     cd $physfs_ver
     mkdir -p ./build
     cd ./build
-    emcmake cmake -DCMAKE_INSTALL_PREFIX:PATH="$(pwd)/../../em_libs" -DCMAKE_C_FLAGS="-O3 -g -s INITIAL_MEMORY=300MB -s ALLOW_MEMORY_GROWTH=1"\
+    emcmake cmake -DCMAKE_INSTALL_PREFIX:PATH="$(pwd)/../../em_libs" -DCMAKE_C_FLAGS="-O3 -g" -DCMAKE_LDFLAGS="-s INITIAL_MEMORY=300MB -s ALLOW_MEMORY_GROWTH=1"\
     -DPHYSFS_ARCHIVE_ZIP=off -DPHYSFS_ARCHIVE_7Z=off -DPHYSFS_ARCHIVE_GRP=off -DPHYSFS_ARCHIVE_WAD=off -DPHYSFS_ARCHIVE_HOG=off -DPHYSFS_ARCHIVE_MVL=off \
     -DPHYSFS_ARCHIVE_QPAK=off -DPHYSFS_ARCHIVE_SLB=off -DPHYSFS_ARCHIVE_ISO9660=off -DPHYSFS_ARCHIVE_VDF=off -DPHYSFS_BUILD_SHARED=off ..
     emmake make install
@@ -51,7 +51,7 @@ fi
 
 echo "Building xmlgettext"
 cd src/tools/xmlgettext
-EMMAKEN_CFLAGS="-s NODERAWFS=1 -s USE_ZLIB=1 -s INITIAL_MEMORY=300MB -s ALLOW_MEMORY_GROWTH=1" jam
+EMMAKEN_CFLAGS="-s USE_ZLIB=1" EMMAKEN_LDFLAGS="-s NODERAWFS=1 -s INITIAL_MEMORY=300MB -s ALLOW_MEMORY_GROWTH=1" jam
 cd ../../../
 
 if ! grep '#!/usr/bin/env node' xmlgettext > /dev/null; then
@@ -66,7 +66,8 @@ chmod u+x xmlgettext
 cat data/gui/creditslist.xml |grep -v "@"|cut -d\> -f2|cut -d\< -f1 >CREDITS
 echo "# automatically generated from data/gui/creditslist.xml. Do not edit. #">>CREDITS
 
-EMMAKEN_CFLAGS="-s SDL2_IMAGE_FORMATS=[\"png\"] -s USE_FREETYPE=1 -s USE_HARFBUZZ=1 -s LEGACY_GL_EMULATION=1 -s INITIAL_MEMORY=300MB -s ALLOW_MEMORY_GROWTH=1 -fexceptions -s DISABLE_EXCEPTION_CATCHING=0 -I ../em_libs/include" emmake jam install
+EMMAKEN_CFLAGS="-s SDL2_IMAGE_FORMATS=[\"png\"] -s USE_FREETYPE=1 -s USE_HARFBUZZ=1 -fexceptions -s DISABLE_EXCEPTION_CATCHING=0 -I ../em_libs/include" \
+EMMAKEN_LDFLAGS="-s LEGACY_GL_EMULATION=1 -s INITIAL_MEMORY=300MB -s ALLOW_MEMORY_GROWTH=1" emmake jam install
 
 emcc -O3 -g build/*/optimize/src/lincity-ng/*.o build/*/optimize/src/lincity/liblincity_lib.a build/*/optimize/src/PhysfsStream/libphysfsstream.a \
 build/*/optimize/src/gui/liblincity_gui.a ../em_libs/lib/libxml2.a ../em_libs/lib/libphysfs.a build/*/optimize/src/tinygettext/libtinygettext.a \
