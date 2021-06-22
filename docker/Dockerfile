@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y nano vim-tiny tmux automake libtool pkg
 RUN chown emscripten:emscripten /src
 
 USER emscripten
-RUN git clone --recursive https://github.com/lawyiu/lincity-ng-webassembly && cd
+RUN git clone --recursive https://github.com/lawyiu/lincity-ng-webassembly
 
 WORKDIR lincity-ng-webassembly
 RUN ./build.sh
