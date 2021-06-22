@@ -1,4 +1,6 @@
 # LinCity-NG to Webassembly
+[![Azure Static Web Apps CI/CD](https://github.com/lawyiu/lincity-ng-webassembly/actions/workflows/azure-static-web-apps-ambitious-rock-07651161e.yml/badge.svg)](https://github.com/lawyiu/lincity-ng-webassembly/actions/workflows/azure-static-web-apps-ambitious-rock-07651161e.yml)
+
 This repository contains a build script to compile LinCity-NG for the web using Emscripten.
 
 ## Build Instructions (Windows, macOS, Linux)
