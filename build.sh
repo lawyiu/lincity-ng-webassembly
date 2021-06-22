@@ -77,5 +77,5 @@ build/*/optimize/src/gui/liblincity_gui.a ../em_libs/lib/libxml2.a ../em_libs/li
 -s LEGACY_GL_EMULATION=1 -s INITIAL_MEMORY=300MB -s ALLOW_MEMORY_GROWTH=1 -fexceptions -s DISABLE_EXCEPTION_CATCHING=0 --shell-file ../shell.html \
 -o index.html --use-preload-cache --preload-file install/usr/share/lincity-ng@/data
 
-mkdir dist
+mkdir -p dist
 cp -u index.{html,js,wasm,data} dist/
