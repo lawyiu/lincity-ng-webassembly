@@ -47,7 +47,7 @@ fi
 
 if [ ! -f config.status ]; then
     EM_PKG_CONFIG_PATH="../em_libs/lib/pkgconfig" emconfigure ./configure --prefix="$(pwd)/install/usr" --with-libphysfs="../em_libs/" \
-    CFLAGS="-s USE_ZLIB=1 -s USE_SDL=2 -s USE_SDL_TTF=2 -s USE_SDL_MIXER=2 -s USE_SDL_GFX=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS=png" \
+    CFLAGS="-s USE_ZLIB=1 -s USE_SDL=2 -s USE_SDL_TTF=2 -s USE_SDL_MIXER=2 -s USE_SDL_GFX=2 -s USE_SDL_IMAGE=2" \
     LDFLAGS="-s USE_FREETYPE=1 -s USE_HARFBUZZ=1 -s LEGACY_GL_EMULATION=1 -s INITIAL_MEMORY=300MB -s ALLOW_MEMORY_GROWTH=1"
 fi
 
@@ -68,7 +68,7 @@ chmod u+x xmlgettext
 cat data/gui/creditslist.xml |grep -v "@"|cut -d\> -f2|cut -d\< -f1 >CREDITS
 echo "# automatically generated from data/gui/creditslist.xml. Do not edit. #">>CREDITS
 
-EMMAKEN_CFLAGS="-fexceptions -s DISABLE_EXCEPTION_CATCHING=0 -I ../em_libs/include" emmake jam install
+EMMAKEN_CFLAGS="-s SDL2_IMAGE_FORMATS=png -fexceptions -s DISABLE_EXCEPTION_CATCHING=0 -I ../em_libs/include" emmake jam install
 
 emcc -O3 -g build/*/optimize/src/lincity-ng/*.o build/*/optimize/src/lincity/liblincity_lib.a build/*/optimize/src/PhysfsStream/libphysfsstream.a \
 build/*/optimize/src/gui/liblincity_gui.a ../em_libs/lib/libxml2.a ../em_libs/lib/libphysfs.a build/*/optimize/src/tinygettext/libtinygettext.a \
