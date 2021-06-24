@@ -3,6 +3,8 @@
 
 This repository contains a build script to compile LinCity-NG for the web using Emscripten.
 
+Try out the game [here](https://ambitious-rock-07651161e.azurestaticapps.net/).
+
 ## Build Instructions (Windows, macOS, Linux)
 Note that building on Windows will require using WSL 2 (Using Docker or without) or WSL 1 (Without Docker).
 
