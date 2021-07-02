@@ -11,10 +11,9 @@ Note that building on Windows will require using WSL 2 (Using Docker or without)
 ### Using Docker (Recommended)
 1. `git clone --recursive https://github.com/lawyiu/lincity-ng-webassembly.git`
 2. `cd lincity-ng-webassembly`
-3. `docker pull emscripten/emsdk:latest`
-4. `docker build -t lincity-ng:latest ./docker`
-5. `docker run -p8080:8080 lincity-ng:latest `
-6. Open a web browser and go to `http://localhost:8080`
+3. `docker build -t lincity-ng:latest ./docker`
+4. `docker run -p8080:8080 lincity-ng:latest `
+5. Open a web browser and go to `http://localhost:8080`
 
 ### Without Docker (Not recommended since installing dependencies differs depending on build platform)
 1. Install [Emscripten](https://emscripten.org/docs/getting_started/downloads.html)
