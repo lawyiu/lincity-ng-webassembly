@@ -28,4 +28,3 @@ Note that building on Windows will require using WSL 2 (Using Docker or without)
 ## Current Limitations
 * Save files are lost if the user closes the browser tab.
 * Save files downloading and uploading to/from a local folder is not implemented yet.
-* Performance in the browser is slow (low framerate).
