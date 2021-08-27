@@ -3,6 +3,7 @@ set -euo pipefail
 
 # Get number of cores for setting number of jobs
 CORES=$(grep processor /proc/cpuinfo | cut -d":" -f 2 | sort -nr | head -n1 | xargs)
+CORES=$((CORES + 1))
 
 if [ -z "$CORES" ]; then
     CORES=4
