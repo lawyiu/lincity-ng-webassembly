@@ -19,7 +19,7 @@ if [ ! -f em_libs/lib/libxml2.a ]; then
     cd ./build
     emconfigure ../libxml2/configure --prefix="$(pwd)/../../em_libs" CFLAGS="-O3 -g" LDFLAGS="-s INITIAL_MEMORY=300MB -s ALLOW_MEMORY_GROWTH=1" \
     --with-http=no --with-ftp=no --with-python=no --with-threads=no --enable-shared=no
-    emmake make install
+    emmake make -j"$CORES" install
     cd ../../
 fi
 
