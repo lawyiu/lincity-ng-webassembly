@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Get number of cores for setting number of jobs
+CORES=$(grep processor /proc/cpuinfo | cut -d":" -f 2 | sort -nr | head -n1 | xargs)
+
+if [ -z "$CORES" ]; then
+    CORES=4
+fi
+
 # Build libxml2
 if [ ! -f em_libs/lib/libxml2.a ]; then
     echo "Building libxml2"
@@ -68,7 +75,7 @@ chmod u+x xmlgettext
 cat data/gui/creditslist.xml |grep -v "@"|cut -d\> -f2|cut -d\< -f1 >CREDITS
 echo "# automatically generated from data/gui/creditslist.xml. Do not edit. #">>CREDITS
 
-EMMAKEN_CFLAGS="-s SDL2_IMAGE_FORMATS=png -fexceptions -s DISABLE_EXCEPTION_CATCHING=0 -I ../em_libs/include" emmake jam install
+EMMAKEN_CFLAGS="-s SDL2_IMAGE_FORMATS=png -fexceptions -s DISABLE_EXCEPTION_CATCHING=0 -I ../em_libs/include" emmake jam -j"$CORES" install
 
 emcc -O3 -g build/*/optimize/src/lincity-ng/*.o build/*/optimize/src/lincity/liblincity_lib.a build/*/optimize/src/PhysfsStream/libphysfsstream.a \
 build/*/optimize/src/gui/liblincity_gui.a ../em_libs/lib/libxml2.a ../em_libs/lib/libphysfs.a build/*/optimize/src/tinygettext/libtinygettext.a \
