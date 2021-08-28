@@ -10,7 +10,7 @@ elif [ "$(uname)" == "Darwin" ]; then
 fi
 
 if [ -z "$CORES" ]; then
-    CORES=4
+    CORES=1
 fi
 
 # Build libxml2
