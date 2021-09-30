@@ -19,8 +19,14 @@ jobs:
         with:
           submodules: false
 
+      - name: Set environment variables
+        run: |
+          # Short name for current branch. For PRs, use source branch (head ref)
+          GIT_BRANCH=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+          echo "GIT_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV
+
       - name: Build Using Docker
-        run: docker build -t lincity-ng:latest ./docker
+        run: docker build --build-arg branch_name=$GIT_BRANCH -t lincity-ng:latest ./docker
 
       - name: Extract Build Artifacts
         run: CONTAINER=$(docker create lincity-ng:latest) && docker cp $CONTAINER:/src/lincity-ng-webassembly/lincity-ng/dist dist

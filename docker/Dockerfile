@@ -7,7 +7,9 @@ USER emscripten
 RUN git clone --recursive https://github.com/lawyiu/lincity-ng-webassembly
 
 WORKDIR lincity-ng-webassembly
-RUN ./build.sh
+ARG branch_name=main
+RUN git checkout ${branch_name}
+RUN ./build.sh ${branch_name}
 
 WORKDIR lincity-ng
 CMD [ "emrun", "--no_browser", "--port=8080", "index.html" ]

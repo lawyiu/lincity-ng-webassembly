@@ -53,6 +53,10 @@ fi
 echo "Building Lincity-ng"
 cd lincity-ng
 
+if [ $# == 1 ]; then
+    git checkout "$1"
+fi
+
 if [ ! -f configure ]; then
     ./autogen.sh
 fi
