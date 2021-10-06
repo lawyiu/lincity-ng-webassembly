@@ -28,17 +28,11 @@ if [ ! -f em_libs/lib/libxml2.a ]; then
 fi
 
 # Build libphysfs
-physfs_ver="physfs-3.0.2"
+physfs_dir="physfs"
 
 if [ ! -f em_libs/lib/libphysfs.a ]; then
-    echo "Building $physfs_ver"
-
-    if [ ! -d $physfs_ver ]; then
-        wget -nc "https://www.icculus.org/physfs/downloads/$physfs_ver.tar.bz2"
-        tar -xf $physfs_ver.tar.bz2
-    fi
-
-    cd $physfs_ver
+    echo "Building physfs"
+    cd "$physfs_dir"
     mkdir -p ./build
     cd ./build
     emcmake cmake -DCMAKE_INSTALL_PREFIX:PATH="$(pwd)/../../em_libs" -DCMAKE_C_FLAGS="-O3 -g" \

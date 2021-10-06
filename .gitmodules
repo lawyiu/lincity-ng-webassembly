@@ -4,3 +4,6 @@
 [submodule "lincity-ng"]
 	path = lincity-ng
 	url = https://github.com/lawyiu/lincity-ng.git
+[submodule "physfs"]
+	path = physfs
+	url = https://github.com/icculus/physfs.git
