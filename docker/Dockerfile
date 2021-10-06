@@ -4,11 +4,12 @@ RUN apt-get update && apt-get install -y nano vim-tiny tmux automake libtool pkg
 RUN chown emscripten:emscripten /src
 
 USER emscripten
-RUN git clone --recursive https://github.com/lawyiu/lincity-ng-webassembly
+RUN git clone https://github.com/lawyiu/lincity-ng-webassembly
 
 WORKDIR lincity-ng-webassembly
 ARG branch_name=main
 RUN git checkout ${branch_name}
+RUN git submodule update --init --recursive
 RUN ./build.sh ${branch_name}
 
 WORKDIR lincity-ng
