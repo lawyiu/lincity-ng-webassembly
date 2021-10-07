@@ -54,7 +54,12 @@ echo "Building Lincity-ng"
 cd lincity-ng
 
 if [ $# == 1 ]; then
-    git checkout "$1"
+    if git branch | grep "$1"; then
+        git checkout "$1"
+    else
+        echo "Warning: branch $1 not found. Using main by default."
+        git checkout main
+    fi
 fi
 
 if [ ! -f configure ]; then
