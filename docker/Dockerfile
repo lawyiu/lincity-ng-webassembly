@@ -10,7 +10,7 @@ WORKDIR lincity-ng-webassembly
 ARG branch_name=main
 RUN git checkout ${branch_name}
 RUN git submodule update --init --recursive
-RUN ./build.sh ${branch_name}
+RUN ./build.sh
 
 WORKDIR lincity-ng
 CMD [ "emrun", "--no_browser", "--port=8080", "index.html" ]
