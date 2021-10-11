@@ -76,11 +76,13 @@ echo "# automatically generated from data/gui/creditslist.xml. Do not edit. #">>
 
 EMCC_CFLAGS="-s SDL2_IMAGE_FORMATS=png -fexceptions -s DISABLE_EXCEPTION_CATCHING=0 -I ../em_libs/include" emmake jam -j"$CORES" install
 
+cp -u ../preRun.js .
+
 emcc -O3 -g build/*/optimize/src/lincity-ng/*.o build/*/optimize/src/lincity/liblincity_lib.a build/*/optimize/src/PhysfsStream/libphysfsstream.a \
 build/*/optimize/src/gui/liblincity_gui.a ../em_libs/lib/libxml2.a ../em_libs/lib/libphysfs.a build/*/optimize/src/tinygettext/libtinygettext.a \
 -s ASYNCIFY -s USE_ZLIB=1 -s USE_SDL=2 -s USE_SDL_TTF=2 -s USE_SDL_MIXER=2 -s USE_SDL_IMAGE=2 -s USE_SDL_GFX=2 -s SDL2_IMAGE_FORMATS=png \
 -s LEGACY_GL_EMULATION=1 -s INITIAL_MEMORY=300MB -s ALLOW_MEMORY_GROWTH=1 -fexceptions -s DISABLE_EXCEPTION_CATCHING=0 --shell-file ../shell.html \
--o index.html --use-preload-cache --preload-file install/usr/share/lincity-ng@/data
+-o index.html --use-preload-cache --preload-file install/usr/share/lincity-ng@/data --pre-js preRun.js -lidbfs.js
 
 mkdir -p dist
 cp -u index.{html,js,wasm,data} dist/
