@@ -1,9 +1,9 @@
 # LinCity-NG to WebAssembly
-[![Azure Static Web Apps CI/CD](https://github.com/lawyiu/lincity-ng-webassembly/actions/workflows/azure-static-web-apps-ambitious-rock-07651161e.yml/badge.svg)](https://github.com/lawyiu/lincity-ng-webassembly/actions)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/13b8f24f-feb0-43d4-bf90-4c85aade128b/deploy-status)](https://github.com/lawyiu/lincity-ng-webassembly/actions)
 
 This repository contains a build script to compile LinCity-NG for the web using Emscripten.
 
-Try out the game [here](https://ambitious-rock-07651161e.azurestaticapps.net/).
+Try out the game [here](https://lincity-ng-game.netlify.app/).
 
 ## Build Instructions (Windows, macOS, Linux)
 Note that building on Windows will require using WSL 2 (Using Docker or without) or WSL 1 (Without Docker).
