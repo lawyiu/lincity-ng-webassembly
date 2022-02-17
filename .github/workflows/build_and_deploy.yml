@@ -1,0 +1,53 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+
+jobs:
+  build_and_deploy_job:
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    runs-on: ubuntu-20.04
+    name: Build and Deploy Job
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: false
+
+      - name: Set environment variables
+        run: |
+          # Short name for current branch. For PRs, use source branch (head ref)
+          GIT_BRANCH=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+          echo "GIT_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV
+
+      - name: Build Using Docker
+        run: docker build --build-arg branch_name=$GIT_BRANCH -t lincity-ng:latest ./docker
+
+      - name: Extract Build Artifacts
+        run: CONTAINER=$(docker create lincity-ng:latest) && docker cp $CONTAINER:/src/lincity-ng-webassembly/lincity-ng/dist dist
+
+      - name: Deploy Draft to Netlify
+        if: github.event_name == 'pull_request' && github.ref != 'refs/heads/main'
+        uses: South-Paw/action-netlify-deploy@2e5ce944afb065f54453c5cc03291670687b454b
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
+          build-dir: './dist'
+          draft: true
+          comment-on-pull-request: true
+
+      - name: Deploy Production to Netlify
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: South-Paw/action-netlify-deploy@2e5ce944afb065f54453c5cc03291670687b454b
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
+          build-dir: './dist'
+          comment-on-commit: true
