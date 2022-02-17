@@ -1,4 +1,5 @@
 # LinCity-NG to WebAssembly
+[![Github Actions CI/CD](https://github.com/lawyiu/lincity-ng-webassembly/actions/workflows/build_and_deploy.yml/badge.svg)](https://github.com/lawyiu/lincity-ng-webassembly/actions/workflows/build_and_deploy.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/13b8f24f-feb0-43d4-bf90-4c85aade128b/deploy-status)](https://github.com/lawyiu/lincity-ng-webassembly/actions)
 
 This repository contains a build script to compile LinCity-NG for the web using Emscripten.
