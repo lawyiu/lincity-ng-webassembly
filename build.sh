@@ -59,7 +59,7 @@ fi
 
 echo "Building xmlgettext"
 cd src/tools/xmlgettext
-EMMAKEN_CFLAGS="-s USE_ZLIB=1" EMMAKEN_LDFLAGS="-s NODERAWFS=1" jam
+EMCC_CFLAGS="-s USE_ZLIB=1" EMMAKEN_LDFLAGS="-s NODERAWFS=1" jam
 cd ../../../
 
 if ! grep '#!/usr/bin/env node' xmlgettext > /dev/null; then
@@ -74,7 +74,7 @@ chmod u+x xmlgettext
 cat data/gui/creditslist.xml |grep -v "@"|cut -d\> -f2|cut -d\< -f1 >CREDITS
 echo "# automatically generated from data/gui/creditslist.xml. Do not edit. #">>CREDITS
 
-EMMAKEN_CFLAGS="-s SDL2_IMAGE_FORMATS=png -fexceptions -s DISABLE_EXCEPTION_CATCHING=0 -I ../em_libs/include" emmake jam -j"$CORES" install
+EMCC_CFLAGS="-s SDL2_IMAGE_FORMATS=png -fexceptions -s DISABLE_EXCEPTION_CATCHING=0 -I ../em_libs/include" emmake jam -j"$CORES" install
 
 emcc -O3 -g build/*/optimize/src/lincity-ng/*.o build/*/optimize/src/lincity/liblincity_lib.a build/*/optimize/src/PhysfsStream/libphysfsstream.a \
 build/*/optimize/src/gui/liblincity_gui.a ../em_libs/lib/libxml2.a ../em_libs/lib/libphysfs.a build/*/optimize/src/tinygettext/libtinygettext.a \
