@@ -27,5 +27,5 @@ Note that building on Windows will require using WSL 2 (Using Docker or without)
 8. Open a web browser and go to `http://localhost:8080`
 
 ## Current Limitations
-* Save files are lost if the user closes the browser tab.
+* Game progress is lost if the user closes the browser tab while in-game. To avoid losing game progress, exit to main menu first and optionally save to a save slot before closing the tab.
 * Save files downloading and uploading to/from a local folder is not implemented yet.
