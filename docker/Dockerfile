@@ -1,4 +1,4 @@
-FROM emscripten/emsdk:3.1.9
+FROM emscripten/emsdk:3.1.10
 
 RUN apt-get update && apt-get install -y nano vim-tiny tmux automake libtool pkg-config jam
 RUN chown emscripten:emscripten /src
